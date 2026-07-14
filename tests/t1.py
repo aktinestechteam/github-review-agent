@@ -1,6 +1,8 @@
 from github import Github
 import os
 from dotenv import load_dotenv
+
+#Load Environment
 load_dotenv()
 
 g = Github(os.getenv("GITHUB_TOKEN"))
