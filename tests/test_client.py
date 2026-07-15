@@ -9,8 +9,8 @@ async def main():
         result = await client.call_tool(
             "get_pull_request",
             {
-                "owner": "gogavejyoti",
-                "repo": "Shared",
+                "owner": "aktinestechteam",
+                "repo": "github-review-agent",
                 "pr_number": 1
             }
         )
