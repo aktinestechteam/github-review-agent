@@ -3,6 +3,9 @@ from github_review_agent.models.pull_request import PullRequest
 from github_review_agent.models.file_change import FileChange
 from github_review_agent.models.merge_result import MergeResult
 from github_review_agent.models.review_comment import ReviewCommentResult
+from github_review_agent.models.pull_request_summary import (
+    PullRequestSummary,
+)
 
 class GitHubService:
      async def get_pull_request(
@@ -79,3 +82,24 @@ class GitHubService:
             },
         )
             return ReviewCommentResult.model_validate(result.data)
+
+async def list_open_pull_requests(
+    self,
+    owner: str,
+    repo: str,
+) -> list[PullRequestSummary]:
+
+    async with client:
+
+        result = await client.call_tool(
+            "list_open_pull_requests",
+            {
+                "owner": owner,
+                "repo": repo,
+            },
+        )
+
+    return [
+        PullRequestSummary.model_validate(item)
+        for item in result.data
+    ]
